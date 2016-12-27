@@ -1,0 +1,10 @@
+ManIntent Whys man calling me family all of a sudden
+ManIntent Whys man calling me fam all of a sudden
+GetNewFactIntent Give me a grime fact
+GetNewFactIntent Give me a slang fact
+GetNewFactIntent Lets hear a grime fact
+GetNewFactIntent Fam give me a grime fact
+GetNewFactIntent Fam give me a slang fact
+WordIntent What does mean
+FamWordIntent What does fam mean
+AMAZON.StopIntent Thanks fam

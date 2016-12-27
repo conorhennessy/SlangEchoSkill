@@ -1,0 +1,28 @@
+{
+    "intents": [
+        {
+            "intent": "AMAZON.ResumeIntent"
+        },
+        {
+            "intent": "AMAZON.PauseIntent"
+        },
+		{
+            "intent": "AMAZON.HelpIntent"
+        },
+		{
+            "intent": "AMAZON.StopIntent"
+        },
+        {
+            "intent": "ManIntent"
+        },
+		{
+            "intent": "GetNewFactIntent"
+		},
+		{
+			"intent": "FamWordIntent"
+		},
+      	{
+      		"intent": "WordIntent"
+      	}
+    ]
+} 
