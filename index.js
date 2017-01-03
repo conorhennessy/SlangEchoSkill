@@ -8,9 +8,8 @@ Lyric's:
 Whys man calling me family all of a sudden?
 Like hmm, my mum don’t know your mum
 Stop telling man you’re my cousin
-"""
 
- * Examples:
+ * Example:
  *  User: "Alexa, ask a slang question"
  *  User: "Whys man calling me family all of a sudden?"
  *  Alexa: "hmm, my mum don’t know your mum
@@ -24,12 +23,13 @@ var APP_ID = undefined; /**  TODO: Fix this thing, I have my APP_ID but when I d
  * The SlangSkill prototype and functions
  */
 var AlexaSkill = require('./AlexaSkill');
+	definition = require('./recipes');
 
 var SlangSkill = function () {
     AlexaSkill.call(this, APP_ID);
 };
 
-// AlexaSkill
+// AlexaSkill initiate
 SlangSkill.prototype = Object.create(AlexaSkill.prototype);
 SlangSkill.prototype.constructor = SlangSkill;
 
@@ -38,6 +38,7 @@ SlangSkill.prototype.eventHandlers.onSessionStarted = function (sessionStartedRe
         + ", sessionId: " + session.sessionId);
 };
 
+//Responce on start
 SlangSkill.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
     console.log("SlangSkill onLaunch requestId: " + launchRequest.requestId + ", sessionId: " + session.sessionId);
     var speechOutput = "Welcome fam, ask me a slang or grime related question";
@@ -45,25 +46,29 @@ SlangSkill.prototype.eventHandlers.onLaunch = function (launchRequest, session, 
     response.ask(speechOutput, repromptText);
 };
 
+//Responce on ending
 SlangSkill.prototype.eventHandlers.onSessionEnded = function (sessionEndedRequest, session) {
     console.log("SlangSkill onSessionEnded requestId: " + sessionEndedRequest.requestId
         + ", sessionId: " + session.sessionId);
+	var speechOutput = "Goodbye";
+    response.ask(speechOutput);
 };
 
 //All intent handlers and apporopriate response
 SlangSkill.prototype.intentHandlers = {
-    // custom intent handlers for man lyrics
-	"ManIntent": function (intent, session, response) {
-        response.tellWithCard("like hmm, my mum don't know your mum"+"Stop telling man you’re my cousin", "Whys man calling me family all of a sudden?"+"Stop telling man you’re my cousin", "Whys man calling me family all of a sudden?"+"Stop telling man you’re my cousin");
-    },
 	"WordIntent": function (intent, session, response) {
 	    response.tellWithCard("I'm unsure on what that word means, come back to me later");
+		//TODO: Add handeling for definiton of said word
     },
 	"FamWordIntent": function (intent, session, response) {
 	    response.tellWithCard("derived from the word family. Referring to people that are extremely close; as if  they are a family member. ");
     },
 	"GetNewFactIntent": function (intent, session, response) {
 	    response.tellWithCard("Sorry mate I don't have a slang fact thing for you just yet, coming soon!"); /**  TODO: Create some facts to add. */
+    },
+	// custom intent handlers for man lyrics
+	"ManIntent": function (intent, session, response) {
+        response.tellWithCard("like hmm, my mum don't know your mum"+"Stop telling man you’re my cousin", "Whys man calling me family all of a sudden?"+"Stop telling man you’re my cousin", "Whys man calling me family all of a sudden?"+"Stop telling man you’re my cousin");
     },
 	"AMAZON.StopIntent": function (intent, session, response) {
 	    response.tellWithCard("Later fam");

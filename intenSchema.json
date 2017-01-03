@@ -22,7 +22,13 @@
 			"intent": "FamWordIntent"
 		},
       	{
-      		"intent": "WordIntent"
+      		"intent": "WordIntent",
+          	"slots":[
+              {
+          		"name": "Word",
+          		"type": "LIST_OF_WORDS"
+			  } 
+          ]
       	}
     ]
 } 
