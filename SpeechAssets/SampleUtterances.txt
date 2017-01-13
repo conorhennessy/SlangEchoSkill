@@ -1,3 +1,7 @@
+WordIntent Whats the defnition of {Word}
+WordIntent Define the word {Word}
+//TODO: Come up with more intents for this word intent
+
 ManIntent Whys man calling me family all of a sudden
 ManIntent Whys man calling me fam all of a sudden
 ManIntent Why is man calling me fam all of a sudden
@@ -8,10 +12,6 @@ GetNewFactIntent Lets hear a grime fact
 GetNewFactIntent Fam give me a grime fact
 GetNewFactIntent Fam give me a slang fact
 
-WordIntent Whats the defnition of
-WordIntent Define the word
-WordIntent 
-//TODO: Come up with more intents for this word intent
 
 AMAZON.StopIntent Thanks fam
 AMAZON.StopIntent Bye fam

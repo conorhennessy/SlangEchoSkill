@@ -10,7 +10,7 @@ Like hmm, my mum don’t know your mum
 Stop telling man you’re my cousin
 
  * Example:
- *  User: "Alexa, ask a slang question"
+ *  User: "Alexa, open London slang guide"
  *  User: "Whys man calling me family all of a sudden?"
  *  Alexa: "hmm, my mum don’t know your mum
 				Stop telling man you’re my cousin"
@@ -22,8 +22,8 @@ var APP_ID = undefined; /**  TODO: Fix this thing, I have my APP_ID but when I d
 /**
  * The SlangSkill prototype and functions
  */
-var AlexaSkill = require('./AlexaSkill');
-	definition = require('./recipes');
+var AlexaSkill = require('./AlexaSkill'),
+	definitions = require('./definitions');
 
 var SlangSkill = function () {
     AlexaSkill.call(this, APP_ID);
@@ -34,8 +34,7 @@ SlangSkill.prototype = Object.create(AlexaSkill.prototype);
 SlangSkill.prototype.constructor = SlangSkill;
 
 SlangSkill.prototype.eventHandlers.onSessionStarted = function (sessionStartedRequest, session) {
-    console.log("SlangSkill onSessionStarted requestId: " + sessionStartedRequest.requestId
-        + ", sessionId: " + session.sessionId);
+    console.log("SlangSkill onSessionStarted requestId: " + sessionStartedRequest.requestId + ", sessionId: " + session.sessionId);
 };
 
 //Responce on start
@@ -48,8 +47,7 @@ SlangSkill.prototype.eventHandlers.onLaunch = function (launchRequest, session, 
 
 //Responce on ending
 SlangSkill.prototype.eventHandlers.onSessionEnded = function (sessionEndedRequest, session) {
-    console.log("SlangSkill onSessionEnded requestId: " + sessionEndedRequest.requestId
-        + ", sessionId: " + session.sessionId);
+    console.log("SlangSkill onSessionEnded requestId: " + sessionEndedRequest.requestId + ", sessionId: " + session.sessionId);
 	var speechOutput = "Goodbye";
     response.ask(speechOutput);
 };
@@ -57,9 +55,41 @@ SlangSkill.prototype.eventHandlers.onSessionEnded = function (sessionEndedReques
 //All intent handlers and apporopriate response
 SlangSkill.prototype.intentHandlers = {
 	"WordIntent": function (intent, session, response) {
-	    response.tellWithCard("I'm unsure on what that word means, come back to me later");
-		//TODO: Add handeling for definiton of said word
+		var wordSlot = intent.slots.Item,
+            wordName;
+        if (wordSlot && wordSlot.value){
+            wordName = wordSlot.value.toLowerCase();
+        }
+
+        var cardTitle = "Definition for " + wordName,
+            word = words[wordName],
+            speechOutput,
+            repromptOutput;
+        if (word) {
+            speechOutput = {
+                speech: word,
+                type: AlexaSkill.speechOutputType.PLAIN_TEXT
+            };
+            response.tellWithCard(speechOutput, cardTitle, word);
+        } else {
+            var speech;
+            if (wordName) {
+                speech = "I'm sorry, I currently do not know the definition for " + wordName + ". What else can I help with?";
+            } else {
+                speech = "I'm sorry, I currently do not know that word at all. What else can I help with?";
+            }
+            speechOutput = {
+                speech: speech,
+                type: AlexaSkill.speechOutputType.PLAIN_TEXT
+            };
+            repromptOutput = {
+                speech: "Oi fam, What can I help with?",
+                type: AlexaSkill.speechOutputType.PLAIN_TEXT
+            };
+            response.ask(speechOutput, repromptOutput);
+        }
     },
+
 	"FamWordIntent": function (intent, session, response) {
 	    response.tellWithCard("derived from the word family. Referring to people that are extremely close; as if  they are a family member. ");
     },
