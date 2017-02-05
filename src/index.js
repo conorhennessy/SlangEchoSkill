@@ -13,7 +13,7 @@ Stop telling man you’re my cousin
  *  User: "Alexa, open London slang guide"
  *  User: "Whys man calling me family all of a sudden?"
  *  Alexa: "hmm, my mum don’t know your mum
-				Stop telling man you’re my cousin"
+                 Stop telling man you’re my cousin"
  */
 
 /** App ID for the skill */
@@ -22,8 +22,8 @@ var APP_ID = undefined; /**  TODO: Fix this thing, I have my APP_ID but when I d
 /**
  * The SlangSkill prototype and functions
  */
-var AlexaSkill = require('./AlexaSkill'),
-	definitions = require('./definitions');
+var AlexaSkill = require('./AlexaSkill');
+var definitions = require('./definitions');
 
 var SlangSkill = function () {
     AlexaSkill.call(this, APP_ID);
